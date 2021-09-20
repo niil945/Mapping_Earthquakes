@@ -1,0 +1,5 @@
+# Ignore the config.js file.
+config.js
+
+# Ignore old index.html files
+index.old.html
