@@ -1,4 +1,4 @@
-// We create the street view tile layer that will be the background of our map.
+// We create the street view tile layer that will be the default background of our map.
 // id options: streets-v11, dark-v10, satellite-streets-v11, light-v10
 
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -8,7 +8,7 @@ attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStree
     accessToken: API_KEY
 });
 
-// We create the dark view tile layer that will be an option for our map.
+// We create the tile layer that will be an option for our map.
 let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -18,21 +18,21 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
 // Create a base layer that holds both maps.
 let baseMaps = {
     "Streets": streets,
-    "Satellite Streets": satelliteStreets
+    "Satellite": satelliteStreets
 };
 
 // Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
-    center: [43.7, -79.3],
-    zoom: 11,
-    layers: [satelliteStreets]
+    center: [39.5, -98.5],
+    zoom: 3,
+    layers: [streets]
 })
 
 // Pass our map layers into our layer control and add the layer control to the map.
 L.control.layers(baseMaps).addTo(map);
 
 // Accessing the airport GeoJSON URL
-let torontoHoods ="https://raw.githubusercontent.com/niil945/Mapping_Earthquakes/main/torontoNeighborhoods.json";
+let quake ="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // Create a style for the lines.
 let myStyle = {
@@ -40,16 +40,44 @@ let myStyle = {
     weight: 2
 }
 
+// This function returns the style data for each of the earthquakes we plot
+// to the map. We pass the magnitude of the earthquake into a function to
+// calculate the radius
+function styleInfo(feature) {
+    return {
+        opacity: 1,
+        fillOpacity: 1,
+        fillColor: "#ffae42",
+        color: "#000000",
+        radius: getRadius(),
+        stroke: true,
+        weight: 0.5
+    }
+}
+
+
+// This function determines the radius of the earthquake marker based on its magnitude.
+// Earthquakes with magnitude of 0 will be plotted with a radius of 1.
+function getRadius(magnitude) {
+    if (magnitude === 0) {
+        return 1;
+    }
+    return magnitude * 4;
+}
+
 // Grabbing our GeoJSON data.
-d3.json(torontoHoods).then(function(data) {
+d3.json(quake).then(function(data) {
     console.log(data);
   // Creating a GeoJSON layer with the retrieved data.
-  L.geoJson(data//, {
-      //style: myStyle,
-      //onEachFeature: function(feature, layer) {
-          //layer.bindPopup("<h3> Airline: " + feature.properties.airline + "</h3 <hr><h3> Destination: "
-          //+ feature.properties.dst + "</h3>");
-      //}
-  //}
+  L.geoJson(data, {
+// We turn each feature into a circleMarker on the map.
+
+pointToLayer: function(feature, latlng) {
+        console.log(data);
+        return L.circleMarker(latlng);
+},
+style: styleInfo
+
+}
   ).addTo(map);
 });
