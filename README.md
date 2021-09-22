@@ -17,7 +17,7 @@ In this challenge we had multiple objectives utilizing github, Leaflet, and Mapb
 
 ## Resources
  - Data Sources:
- -- [7 Day Earthquake GeoJSON data] (https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson)
- -- [Tectonic Plate Boundaries GeoJSON data] (https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json)
- -- [4.5+ Magnitude Quake GeoJSON data] (https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson)
+   - [7 Day Earthquake GeoJSON data] (https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson)
+   - [Tectonic Plate Boundaries GeoJSON data] (https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json)
+   - [4.5+ Magnitude Quake GeoJSON data] (https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson)
  - Software: Visual Studio Code 1.60.1
