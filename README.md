@@ -15,6 +15,10 @@ In this challenge we had multiple objectives utilizing github, Leaflet, and Mapb
  - Configure multiple layers and multiple maps
  - Utilize various sources of JSON data (local, web hosted)
 
+## Challenge
+
+![Challenge 13 Image](/Earthquake_Challenge/static/images/challenge_3.png)
+
 ## Resources
  - Data Sources:
    - [7 Day Earthquake GeoJSON data](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson)
